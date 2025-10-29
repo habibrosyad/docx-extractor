@@ -1,0 +1,27 @@
+# Source files
+src/
+tsconfig.json
+
+# Test files
+test/
+*.test.js
+*.spec.js
+
+# Development files
+.gitignore
+.env*
+
+# Documentation (keep only README.md)
+*.md
+!README.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+

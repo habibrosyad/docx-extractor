@@ -1,0 +1,55 @@
+{
+  "name": "@habibrosyad/docx-extractor",
+  "version": "0.1.0",
+  "description": "Extract and rebuild DOCX documents with full structure preservation. Parse Word documents to structured data and rebuild them programmatically.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "node test/test-roundtrip.js",
+    "test:generate": "node test/test-generate.js"
+  },
+  "keywords": [
+    "docx",
+    "word",
+    "extract",
+    "parse",
+    "builder",
+    "document",
+    "office",
+    "microsoft-word"
+  ],
+  "author": "M. Habib Rosyad",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/habibrosyad/docx-extractor.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "jsdom": "^27.0.1",
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^27.0.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

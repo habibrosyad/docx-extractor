@@ -1,0 +1,1904 @@
+{
+  "paragraphs": [
+    {
+      "runs": [
+        {
+          "text": "Document Test",
+          "formatting": {
+            "bold": true,
+            "fontSize": 18
+          }
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "alignment": "center",
+      "styleName": "Title",
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "1. Text Formatting"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading1",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "This document demonstrates "
+        },
+        {
+          "text": "bold",
+          "formatting": {
+            "bold": true
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "italic",
+          "formatting": {
+            "italic": true
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "underline",
+          "formatting": {
+            "underline": true
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "strikethrough",
+          "formatting": {
+            "strike": true
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "red text",
+          "formatting": {
+            "color": "#FF0000"
+          }
+        },
+        {
+          "text": ", and "
+        },
+        {
+          "text": "highlighted",
+          "formatting": {
+            "highlight": "yellow"
+          }
+        },
+        {
+          "text": " text."
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Scientific notation: E=mc"
+        },
+        {
+          "text": "2",
+          "formatting": {
+            "verticalAlign": "superscript"
+          }
+        },
+        {
+          "text": " and chemical formula: H"
+        },
+        {
+          "text": "2",
+          "formatting": {
+            "verticalAlign": "subscript"
+          }
+        },
+        {
+          "text": "O"
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "2. Font Styles"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading2",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Default font (Calibri), "
+        },
+        {
+          "text": "Arial",
+          "formatting": {
+            "fontFamily": "Arial"
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "Times New Roman",
+          "formatting": {
+            "fontFamily": "Times New Roman"
+          }
+        },
+        {
+          "text": ", and "
+        },
+        {
+          "text": "Courier New",
+          "formatting": {
+            "fontFamily": "Courier New"
+          }
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Font sizes: "
+        },
+        {
+          "text": "small (8pt)",
+          "formatting": {
+            "fontSize": 8
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "normal (11pt)",
+          "formatting": {
+            "fontSize": 11
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "large (14pt)",
+          "formatting": {
+            "fontSize": 14
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "huge (18pt)",
+          "formatting": {
+            "fontSize": 18
+          }
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "3. Paragraph Alignment"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading2",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "This paragraph is left aligned (default)."
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "alignment": "left",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "This paragraph is center aligned."
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "alignment": "center",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "This paragraph is right aligned."
+        }
+      ],
+      "spacing": {
+        "after": 20
+      },
+      "alignment": "right",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "This paragraph is justified. It should stretch across the entire width when there is enough text to demonstrate the justification effect properly."
+        }
+      ],
+      "spacing": {
+        "after": 20
+      },
+      "alignment": "justify",
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "4. Tables"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading2",
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "4.1 Formatted Table with Colors"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading3",
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "5. Lists"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading2",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "First bullet item"
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "numbering": {
+        "id": "1",
+        "level": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Second bullet item with "
+        },
+        {
+          "text": "bold text",
+          "formatting": {
+            "bold": true
+          }
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "numbering": {
+        "id": "1",
+        "level": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Third bullet item"
+        }
+      ],
+      "spacing": {
+        "after": 20
+      },
+      "numbering": {
+        "id": "1",
+        "level": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "5.1 Numbered List"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading3",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "First step in the process"
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "numbering": {
+        "id": "2",
+        "level": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Second step in the process"
+        }
+      ],
+      "spacing": {
+        "after": 0
+      },
+      "numbering": {
+        "id": "2",
+        "level": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "Third step in the process"
+        }
+      ],
+      "spacing": {
+        "after": 20
+      },
+      "numbering": {
+        "id": "2",
+        "level": 0
+      },
+      "isEmpty": false
+    },
+    {
+      "runs": [],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": true
+    },
+    {
+      "runs": [
+        {
+          "text": "6. Conclusion"
+        }
+      ],
+      "spacing": {
+        "before": 0,
+        "after": 0
+      },
+      "styleName": "Heading2",
+      "isEmpty": false
+    },
+    {
+      "runs": [
+        {
+          "text": "This document successfully demonstrates all major features: "
+        },
+        {
+          "text": "headings",
+          "formatting": {
+            "bold": true
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "text formatting",
+          "formatting": {
+            "italic": true
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "tables",
+          "formatting": {
+            "underline": true
+          }
+        },
+        {
+          "text": ", and "
+        },
+        {
+          "text": "lists",
+          "formatting": {
+            "bold": true,
+            "italic": true
+          }
+        },
+        {
+          "text": ". All elements are compatible with Microsoft Word."
+        }
+      ],
+      "spacing": {
+        "after": 20
+      },
+      "isEmpty": false
+    }
+  ],
+  "tables": [
+    {
+      "rows": [
+        {
+          "cells": [
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Header 1",
+                      "formatting": {
+                        "bold": true
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Header 2",
+                      "formatting": {
+                        "bold": true
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Header 3",
+                      "formatting": {
+                        "bold": true
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Row 1, Cell 1"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Row 1, Cell 2"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Row 1, Cell 3"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Row 2, Cell 1"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Row 2, Cell 2"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Row 2, Cell 3"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 144
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rows": [
+        {
+          "cells": [
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Product",
+                      "formatting": {
+                        "bold": true,
+                        "color": "#FFFFFF"
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 180,
+              "backgroundColor": "#4472C4"
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Price",
+                      "formatting": {
+                        "bold": true,
+                        "color": "#FFFFFF"
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 120,
+              "backgroundColor": "#4472C4"
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Stock",
+                      "formatting": {
+                        "bold": true,
+                        "color": "#FFFFFF"
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 120,
+              "backgroundColor": "#4472C4"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Widget A"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 180
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "$19.99",
+                      "formatting": {
+                        "bold": true,
+                        "color": "#00B050"
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 120
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "50"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 120
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "Widget B"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 180
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "$29.99",
+                      "formatting": {
+                        "bold": true,
+                        "color": "#00B050"
+                      }
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 120
+            },
+            {
+              "content": [
+                {
+                  "runs": [
+                    {
+                      "text": "30"
+                    }
+                  ],
+                  "isEmpty": false
+                }
+              ],
+              "width": 120
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Document Test",
+            "formatting": {
+              "bold": true,
+              "fontSize": 18
+            }
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "alignment": "center",
+        "styleName": "Title",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "1. Text Formatting"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading1",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "This document demonstrates "
+          },
+          {
+            "text": "bold",
+            "formatting": {
+              "bold": true
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "italic",
+            "formatting": {
+              "italic": true
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "underline",
+            "formatting": {
+              "underline": true
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "strikethrough",
+            "formatting": {
+              "strike": true
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "red text",
+            "formatting": {
+              "color": "#FF0000"
+            }
+          },
+          {
+            "text": ", and "
+          },
+          {
+            "text": "highlighted",
+            "formatting": {
+              "highlight": "yellow"
+            }
+          },
+          {
+            "text": " text."
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Scientific notation: E=mc"
+          },
+          {
+            "text": "2",
+            "formatting": {
+              "verticalAlign": "superscript"
+            }
+          },
+          {
+            "text": " and chemical formula: H"
+          },
+          {
+            "text": "2",
+            "formatting": {
+              "verticalAlign": "subscript"
+            }
+          },
+          {
+            "text": "O"
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "2. Font Styles"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading2",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Default font (Calibri), "
+          },
+          {
+            "text": "Arial",
+            "formatting": {
+              "fontFamily": "Arial"
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "Times New Roman",
+            "formatting": {
+              "fontFamily": "Times New Roman"
+            }
+          },
+          {
+            "text": ", and "
+          },
+          {
+            "text": "Courier New",
+            "formatting": {
+              "fontFamily": "Courier New"
+            }
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Font sizes: "
+          },
+          {
+            "text": "small (8pt)",
+            "formatting": {
+              "fontSize": 8
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "normal (11pt)",
+            "formatting": {
+              "fontSize": 11
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "large (14pt)",
+            "formatting": {
+              "fontSize": 14
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "huge (18pt)",
+            "formatting": {
+              "fontSize": 18
+            }
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "3. Paragraph Alignment"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading2",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "This paragraph is left aligned (default)."
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "alignment": "left",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "This paragraph is center aligned."
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "alignment": "center",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "This paragraph is right aligned."
+          }
+        ],
+        "spacing": {
+          "after": 20
+        },
+        "alignment": "right",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "This paragraph is justified. It should stretch across the entire width when there is enough text to demonstrate the justification effect properly."
+          }
+        ],
+        "spacing": {
+          "after": 20
+        },
+        "alignment": "justify",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "4. Tables"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading2",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "table",
+      "data": {
+        "rows": [
+          {
+            "cells": [
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Header 1",
+                        "formatting": {
+                          "bold": true
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Header 2",
+                        "formatting": {
+                          "bold": true
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Header 3",
+                        "formatting": {
+                          "bold": true
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              }
+            ]
+          },
+          {
+            "cells": [
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Row 1, Cell 1"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Row 1, Cell 2"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Row 1, Cell 3"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              }
+            ]
+          },
+          {
+            "cells": [
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Row 2, Cell 1"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Row 2, Cell 2"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Row 2, Cell 3"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 144
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "4.1 Formatted Table with Colors"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading3",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "table",
+      "data": {
+        "rows": [
+          {
+            "cells": [
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Product",
+                        "formatting": {
+                          "bold": true,
+                          "color": "#FFFFFF"
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 180,
+                "backgroundColor": "#4472C4"
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Price",
+                        "formatting": {
+                          "bold": true,
+                          "color": "#FFFFFF"
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 120,
+                "backgroundColor": "#4472C4"
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Stock",
+                        "formatting": {
+                          "bold": true,
+                          "color": "#FFFFFF"
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 120,
+                "backgroundColor": "#4472C4"
+              }
+            ]
+          },
+          {
+            "cells": [
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Widget A"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 180
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "$19.99",
+                        "formatting": {
+                          "bold": true,
+                          "color": "#00B050"
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 120
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "50"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 120
+              }
+            ]
+          },
+          {
+            "cells": [
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "Widget B"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 180
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "$29.99",
+                        "formatting": {
+                          "bold": true,
+                          "color": "#00B050"
+                        }
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 120
+              },
+              {
+                "content": [
+                  {
+                    "runs": [
+                      {
+                        "text": "30"
+                      }
+                    ],
+                    "isEmpty": false
+                  }
+                ],
+                "width": 120
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "5. Lists"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading2",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "First bullet item"
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "numbering": {
+          "id": "1",
+          "level": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Second bullet item with "
+          },
+          {
+            "text": "bold text",
+            "formatting": {
+              "bold": true
+            }
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "numbering": {
+          "id": "1",
+          "level": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Third bullet item"
+          }
+        ],
+        "spacing": {
+          "after": 20
+        },
+        "numbering": {
+          "id": "1",
+          "level": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "5.1 Numbered List"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading3",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "First step in the process"
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "numbering": {
+          "id": "2",
+          "level": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Second step in the process"
+          }
+        ],
+        "spacing": {
+          "after": 0
+        },
+        "numbering": {
+          "id": "2",
+          "level": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "Third step in the process"
+          }
+        ],
+        "spacing": {
+          "after": 20
+        },
+        "numbering": {
+          "id": "2",
+          "level": 0
+        },
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": true
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "6. Conclusion"
+          }
+        ],
+        "spacing": {
+          "before": 0,
+          "after": 0
+        },
+        "styleName": "Heading2",
+        "isEmpty": false
+      }
+    },
+    {
+      "type": "paragraph",
+      "data": {
+        "runs": [
+          {
+            "text": "This document successfully demonstrates all major features: "
+          },
+          {
+            "text": "headings",
+            "formatting": {
+              "bold": true
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "text formatting",
+            "formatting": {
+              "italic": true
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "tables",
+            "formatting": {
+              "underline": true
+            }
+          },
+          {
+            "text": ", and "
+          },
+          {
+            "text": "lists",
+            "formatting": {
+              "bold": true,
+              "italic": true
+            }
+          },
+          {
+            "text": ". All elements are compatible with Microsoft Word."
+          }
+        ],
+        "spacing": {
+          "after": 20
+        },
+        "isEmpty": false
+      }
+    }
+  ],
+  "styles": {
+    "Normal": {
+      "name": "Normal",
+      "type": "paragraph",
+      "isDefault": true,
+      "runFormatting": {
+        "fontSize": 11,
+        "fontFamily": "Calibri"
+      }
+    },
+    "Title": {
+      "name": "Title",
+      "type": "paragraph",
+      "runFormatting": {
+        "bold": true,
+        "fontSize": 18,
+        "color": "#000000"
+      },
+      "spacing": {
+        "after": 0
+      },
+      "alignment": "center"
+    },
+    "Heading1": {
+      "name": "Heading 1",
+      "type": "paragraph",
+      "runFormatting": {
+        "bold": true,
+        "fontSize": 16,
+        "color": "#2E74B5"
+      },
+      "spacing": {
+        "before": 0,
+        "after": 0
+      }
+    },
+    "Heading2": {
+      "name": "Heading 2",
+      "type": "paragraph",
+      "runFormatting": {
+        "bold": true,
+        "fontSize": 13,
+        "color": "#2E74B5"
+      },
+      "spacing": {
+        "before": 0,
+        "after": 0
+      }
+    },
+    "Heading3": {
+      "name": "Heading 3",
+      "type": "paragraph",
+      "runFormatting": {
+        "bold": true,
+        "fontSize": 11,
+        "color": "#1F4D78"
+      },
+      "spacing": {
+        "before": 0,
+        "after": 0
+      }
+    }
+  },
+  "defaults": {
+    "fontSize": 11,
+    "fontFamily": "Calibri"
+  },
+  "paragraphDefaults": {
+    "spacing": {
+      "after": 0,
+      "line": 13.8,
+      "lineRule": "auto"
+    }
+  },
+  "numbering": {
+    "1": {
+      "numId": "1",
+      "abstractNumId": "0",
+      "multiLevelType": "hybridMultilevel",
+      "levels": [
+        {
+          "level": 0,
+          "start": 1,
+          "format": "bullet",
+          "text": "•",
+          "alignment": "left",
+          "indentation": {
+            "left": 360,
+            "hanging": 360
+          },
+          "fontFamily": "Symbol"
+        }
+      ]
+    },
+    "2": {
+      "numId": "2",
+      "abstractNumId": "1",
+      "multiLevelType": "hybridMultilevel",
+      "levels": [
+        {
+          "level": 0,
+          "start": 1,
+          "format": "decimal",
+          "text": "%1.",
+          "alignment": "left",
+          "indentation": {
+            "left": 360,
+            "hanging": 360
+          }
+        }
+      ]
+    }
+  },
+  "mediaFiles": {}
+}
