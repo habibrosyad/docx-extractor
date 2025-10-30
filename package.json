@@ -1,6 +1,6 @@
 {
   "name": "@habibrosyad/docx-extractor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Extract and rebuild DOCX documents with full structure preservation. Parse Word documents to structured data and rebuild them programmatically.",
   "type": "module",
   "main": "dist/index.js",

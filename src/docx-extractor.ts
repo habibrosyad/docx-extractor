@@ -36,7 +36,7 @@ export class DocxExtractor {
     this.xml = new XmlParser();
   }
 
-  async extract(buffer: ArrayBuffer | Buffer): Promise<ExtractedDocument> {
+  async extract(buffer: ArrayBuffer | Buffer | Uint8Array): Promise<ExtractedDocument> {
     this.zip = await JSZip.loadAsync(buffer);
 
     // Load relationships
@@ -904,8 +904,12 @@ export class DocxExtractor {
       const arrayBuffer = await imageFile.async('arraybuffer');
       const uint8Array = new Uint8Array(arrayBuffer);
 
-      // Convert to base64
-      const base64 = Buffer.from(uint8Array).toString('base64');
+      // Convert to base64 in a platform-agnostic way
+      let binary = '';
+      for (let i = 0; i < uint8Array.length; i++) {
+        binary += String.fromCharCode(uint8Array[i]);
+      }
+      const base64 = btoa(binary);
 
       // Determine content type from extension
       const ext = path.split('.').pop()?.toLowerCase();

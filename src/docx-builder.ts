@@ -18,7 +18,7 @@ export class DocxBuilder {
   private relationships: Map<string, { id: string; type: string; target: string }> = new Map();
   private nextRelId = 1;
 
-  async build(document: ExtractedDocument): Promise<Buffer> {
+  async build(document: ExtractedDocument): Promise<Uint8Array> {
     const zip = new JSZip();
 
     // Create required DOCX structure
@@ -35,9 +35,9 @@ export class DocxBuilder {
     // Add any embedded images
     await this.addImages(zip, document);
 
-    // Generate the DOCX file
+    // Generate the DOCX file (use uint8array for platform compatibility)
     const buffer = await zip.generateAsync({
-      type: 'nodebuffer',
+      type: 'uint8array',
       compression: 'DEFLATE',
       compressionOptions: { level: 9 }
     });
@@ -596,8 +596,13 @@ export class DocxBuilder {
           if (run.image?.data) {
             imageCount++;
             const ext = run.image.contentType?.split('/')[1] || 'png';
-            const buffer = Buffer.from(run.image.data, 'base64');
-            zip.file(`word/media/image${imageCount}.${ext}`, buffer);
+            // Decode base64 to binary in a platform-agnostic way
+            const binaryString = atob(run.image.data);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+            }
+            zip.file(`word/media/image${imageCount}.${ext}`, bytes);
           }
         }
       }

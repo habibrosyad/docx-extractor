@@ -76,7 +76,45 @@ const buffer = await builder.build(document);
 
 **Parameters**: `ExtractedDocument` (from extractor or construct it yourself)
 
-**Returns**: `Promise<Buffer>` - DOCX file buffer
+**Returns**: `Promise<Uint8Array>` - DOCX file buffer (compatible with Node.js, browsers, and edge runtimes)
+
+## Platform Compatibility
+
+This library works across all JavaScript runtimes:
+- ✅ **Node.js**: Full support (v18+)
+- ✅ **Cloudflare Workers**: Full support
+- ✅ **Browsers**: Full support
+- ✅ **Deno**: Full support
+- ✅ **Bun**: Full support
+
+### Using in Cloudflare Workers
+
+```javascript
+export default {
+  async fetch(request) {
+    // Get DOCX file from request
+    const arrayBuffer = await request.arrayBuffer();
+    
+    // Extract and process
+    const extractor = new DocxExtractor();
+    const document = await extractor.extract(arrayBuffer);
+    
+    // Modify document...
+    
+    // Rebuild
+    const builder = new DocxBuilder();
+    const outputBuffer = await builder.build(document);
+    
+    // Return as response
+    return new Response(outputBuffer, {
+      headers: {
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'Content-Disposition': 'attachment; filename="output.docx"'
+      }
+    });
+  }
+};
+```
 
 ## Document Structure
 
@@ -100,7 +138,7 @@ const buffer = await builder.build(document);
 
 ## Requirements
 
-- Node.js >= 18.0.0
+- Modern JavaScript runtime with ES modules support (Node.js >= 18, Deno, Bun, Cloudflare Workers, or modern browsers)
 
 ## License
 
