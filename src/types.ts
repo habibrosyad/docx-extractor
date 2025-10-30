@@ -38,6 +38,7 @@ export interface ExtractedImage {
   contentType?: string; // image/png, image/jpeg, etc.
   width?: number; // in points
   height?: number; // in points
+  drawingXml?: string; // raw drawing XML (preserves inline vs anchor, positioning, text wrapping, etc.)
 }
 
 export interface RunFormatting {
@@ -56,6 +57,9 @@ export interface RunFormatting {
   fontThemeCs?: string; // complex script theme font
   highlight?: string;
   verticalAlign?: 'superscript' | 'subscript'; // w:vertAlign
+  lang?: string; // language (e.g., "en-US")
+  langEastAsia?: string; // east asian language
+  langBidi?: string; // bidirectional language (e.g., "ar-SA")
 }
 
 export interface SpacingInfo {
@@ -80,6 +84,7 @@ export interface NumberingInfo {
 export interface ExtractedTable {
   rows: ExtractedTableRow[];
   columnWidths?: number[];
+  tableStyle?: string;
 }
 
 export interface ExtractedTableRow {

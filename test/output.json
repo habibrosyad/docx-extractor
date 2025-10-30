@@ -684,6 +684,12 @@
             }
           ]
         }
+      ],
+      "tableStyle": "TableGrid",
+      "columnWidths": [
+        144,
+        144,
+        144
       ]
     },
     {
@@ -840,6 +846,12 @@
             }
           ]
         }
+      ],
+      "tableStyle": "TableGrid",
+      "columnWidths": [
+        180,
+        120,
+        120
       ]
     }
   ],
@@ -1355,6 +1367,12 @@
               }
             ]
           }
+        ],
+        "tableStyle": "TableGrid",
+        "columnWidths": [
+          144,
+          144,
+          144
         ]
       }
     },
@@ -1540,6 +1558,12 @@
               }
             ]
           }
+        ],
+        "tableStyle": "TableGrid",
+        "columnWidths": [
+          180,
+          120,
+          120
         ]
       }
     },
@@ -1899,6 +1923,5 @@
         }
       ]
     }
-  },
-  "mediaFiles": {}
+  }
 }

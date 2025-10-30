@@ -54,10 +54,10 @@ export class DocxBuilder {
   <Default Extension="jpg" ContentType="image/jpeg"/>
   <Default Extension="jpeg" ContentType="image/jpeg"/>
   <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
-  <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
-  <Override PartName="/word/numbering.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml"/>
-  <Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>
-  <Override PartName="/word/webSettings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml"/>
+    <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
+    <Override PartName="/word/numbering.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml"/>
+    <Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>
+    <Override PartName="/word/webSettings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml"/>
   <Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
   <Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
 </Types>`;
@@ -129,11 +129,11 @@ export class DocxBuilder {
   private addDocumentRels(zip: JSZip, document: ExtractedDocument): void {
     // Build relationships from extracted data AND preserved media files
     let relsXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
-  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/>
-  <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>
-  <Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings" Target="webSettings.xml"/>`;
+  <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+    <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+    <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/>
+    <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>
+    <Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings" Target="webSettings.xml"/>`;
 
     // Reset nextRelId to start from 5 (after styles, numbering, settings, webSettings)
     this.nextRelId = 5;
@@ -236,6 +236,14 @@ export class DocxBuilder {
       stylesXml += '\n  </w:docDefaults>';
     }
 
+    // Collect table styles used in the document
+    const usedTableStyles = new Set<string>();
+    for (const table of document.tables) {
+      if (table.tableStyle) {
+        usedTableStyles.add(table.tableStyle);
+      }
+    }
+
     // Add styles
     if (document.styles && document.styles.size > 0) {
       for (const [styleId, styleInfo] of document.styles) {
@@ -245,6 +253,11 @@ export class DocxBuilder {
         const styleType = styleInfo.type || 'paragraph';
         stylesXml += `\n  <w:style w:type="${styleType}" w:styleId="${styleId}"${defaultAttr}>`;
         stylesXml += `\n    <w:name w:val="${styleInfo.name}"/>`;
+
+        // Mark this style as found if it's a used table style
+        if (styleType === 'table' && usedTableStyles.has(styleId)) {
+          usedTableStyles.delete(styleId);
+        }
 
         if (styleInfo.basedOn) {
           stylesXml += `\n    <w:basedOn w:val="${styleInfo.basedOn}"/>`;
@@ -327,10 +340,21 @@ export class DocxBuilder {
         // Table properties (for table styles)
         if (styleType === 'table' && styleInfo.tablePropertiesXml) {
           // Insert the preserved table properties XML
-          // Need to clean up namespace prefixes
+          // The XML should already have correct namespace prefixes from serializeToString
+          // Just ensure any stray ns0:, ns1: prefixes are replaced with w:, but preserve existing w: prefixes
           let tblPrXml = styleInfo.tablePropertiesXml;
-          // Remove namespace prefixes (ns0:, ns1:, etc.) and replace with w:
-          tblPrXml = tblPrXml.replace(/ns\d+:/g, 'w:');
+          // Only replace ns\d+: prefixes, not w: prefixes
+          tblPrXml = tblPrXml.replace(/<(ns\d+):/g, '<w:');
+          tblPrXml = tblPrXml.replace(/<\/(ns\d+):/g, '</w:');
+          // Also ensure elements without any prefix get w: prefix (except they should already have it from serializeToString)
+          // But handle case where localName elements might not have prefix
+          // Replace unqualified element tags that should be w: namespace
+          const tableElements = ['tblPr', 'tblBorders', 'tblInd', 'top', 'left', 'bottom', 'right', 'insideH', 'insideV', 'tblStyleRowBandSize', 'tblStyleColBandSize', 'tblW', 'tblLook'];
+          for (const elem of tableElements) {
+            // Only add prefix if element doesn't already have w: or other prefix
+            tblPrXml = tblPrXml.replace(new RegExp(`<(?!/w:)(?!ns\\d+:)(?![a-z-]+:)${elem}(\\s|>)`, 'g'), `<w:${elem}$1`);
+            tblPrXml = tblPrXml.replace(new RegExp(`</(?!/w:)(?!ns\\d+:)(?![a-z-]+:)${elem}>`, 'g'), `</w:${elem}>`);
+          }
           tblPrXml = tblPrXml.replace(/xmlns:ns\d+="[^"]*"/g, '');
           // Indent properly
           tblPrXml = '\n    ' + tblPrXml.trim().replace(/\n/g, '\n    ');
@@ -339,6 +363,19 @@ export class DocxBuilder {
 
         stylesXml += '\n  </w:style>';
       }
+    }
+
+    // Add any missing table styles that are referenced but not found
+    // This ensures tables can render even if their style wasn't fully extracted
+    for (const tableStyle of usedTableStyles) {
+      // Add minimal table style definition so Word can render the table
+      stylesXml += `\n  <w:style w:type="table" w:styleId="${tableStyle}">`;
+      stylesXml += `\n    <w:name w:val="${tableStyle}"/>`;
+      stylesXml += `\n    <w:tblPr>
+      <w:tblStyleRowBandSize w:val="1"/>
+      <w:tblStyleColBandSize w:val="1"/>
+    </w:tblPr>`;
+      stylesXml += '\n  </w:style>';
     }
 
     stylesXml += '\n</w:styles>';
@@ -606,8 +643,17 @@ export class DocxBuilder {
     }
 
     // Runs
-    for (const run of para.runs) {
-      xml += this.buildRunXml(run);
+    // CRITICAL: Every paragraph MUST have at least one run, even if empty
+    // Word will not render paragraphs (especially in tables) without at least one <w:r> element
+    if (para.runs && para.runs.length > 0) {
+      for (const run of para.runs) {
+        xml += this.buildRunXml(run);
+      }
+    } else {
+      // Add empty run if paragraph has no runs
+      xml += '\n      <w:r>';
+      xml += '\n        <w:t></w:t>';
+      xml += '\n      </w:r>';
     }
 
     xml += '\n    </w:p>';
@@ -625,9 +671,11 @@ export class DocxBuilder {
     }
 
     // Text or image
+    // CRITICAL: Every run MUST have either text or image content
+    // Word will not render runs without at least one content element
     if (run.image) {
       xml += this.buildImageXml(run.image);
-    } else if (run.text) {
+    } else if (run.text !== undefined && run.text !== null && run.text !== '') {
       // Handle line breaks and tabs
       const parts = run.text.split('\n');
 
@@ -658,6 +706,9 @@ export class DocxBuilder {
           }
         }
       }
+    } else {
+      // Empty run - must have at least an empty text element for Word to render it
+      xml += '\n        <w:t></w:t>';
     }
 
     xml += '\n      </w:r>';
@@ -674,6 +725,17 @@ export class DocxBuilder {
       return '';
     }
 
+    // If we have preserved drawing XML, use it with updated relationship ID
+    if (image.drawingXml) {
+      // Replace the old relationship ID with the new one
+      let drawingXml = image.drawingXml;
+      // Replace r:embed="oldId" with r:embed="newId"
+      drawingXml = drawingXml.replace(/r:embed="[^"]*"/g, `r:embed="${rel.id}"`);
+      // The drawingXml already includes the <drawing> wrapper from serialization
+      return `\n        ${drawingXml}`;
+    }
+
+    // Fallback: generate inline image (for compatibility with old extracted data)
     const width = image.width || 100;
     const height = image.height || 100;
     const cx = Math.round(width * 12700); // Convert points to EMUs (1 point = 12700 EMUs)
@@ -725,17 +787,22 @@ export class DocxBuilder {
 
     // Table properties
     xml += '\n      <w:tblPr>';
-    xml += '\n        <w:tblStyle w:val="TableGrid"/>';
+
+    // Use extracted table style if available, otherwise default to TableGrid
+    const tableStyle = table.tableStyle || 'TableGrid';
+    xml += `\n        <w:tblStyle w:val="${tableStyle}"/>`;
     xml += '\n        <w:tblW w:w="0" w:type="auto"/>';
     xml += '\n        <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>';
+
     xml += '\n      </w:tblPr>';
 
     // Table grid (column definitions) - CRITICAL for proper rendering
     xml += '\n      <w:tblGrid>';
 
-    // Determine column widths from the first row or use columnWidths property
+    // Use extracted column widths if available
     if (table.columnWidths && table.columnWidths.length > 0) {
       for (const width of table.columnWidths) {
+        // Width is already in points from extraction, convert to twips
         xml += `\n        <w:gridCol w:w="${Math.round(width * 20)}"/>`;
       }
     } else if (table.rows.length > 0 && table.rows[0].cells.length > 0) {
@@ -743,6 +810,12 @@ export class DocxBuilder {
       for (const cell of table.rows[0].cells) {
         const width = cell.width || 2160; // Default width in twips (1.5 inches)
         xml += `\n        <w:gridCol w:w="${Math.round(width * 20)}"/>`;
+      }
+    } else {
+      // Last resort: use a default width for each column (if we can determine column count from first row)
+      const columnCount = table.rows.length > 0 ? table.rows[0].cells.length : 1;
+      for (let i = 0; i < columnCount; i++) {
+        xml += '\n        <w:gridCol w:w="2160"/>';
       }
     }
 
@@ -824,8 +897,15 @@ export class DocxBuilder {
     xml += '\n          </w:tcPr>';
 
     // Cell content (paragraphs)
-    for (const para of cell.content) {
-      xml += this.buildParagraphXml(para);
+    // CRITICAL: Every cell MUST have at least one paragraph, even if empty
+    // Word will not render cells without at least one <w:p> element
+    if (cell.content && cell.content.length > 0) {
+      for (const para of cell.content) {
+        xml += this.buildParagraphXml(para);
+      }
+    } else {
+      // Add empty paragraph if cell has no content
+      xml += '\n          <w:p>\n          </w:p>';
     }
 
     xml += '\n        </w:tc>';

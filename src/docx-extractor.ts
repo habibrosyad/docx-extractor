@@ -4,7 +4,6 @@
  */
 
 import JSZip from 'jszip';
-import { JSDOM } from 'jsdom';
 import {
   ExtractedDocument,
   ExtractedParagraph,
@@ -22,12 +21,10 @@ import {
   NumberingLevel,
   ParagraphDefaults
 } from './types.js';
-import { XmlParser } from './xml-parser.js';
+import { XmlParser, XmlElement } from './xml-parser.js';
 
 export class DocxExtractor {
   private xml: XmlParser;
-  private domParser: DOMParser;
-  private xmlSerializer: XMLSerializer;
   private zip: JSZip | null = null;
   private relationships: Map<string, string> = new Map();
   private styles: Map<string, StyleInfo> = new Map();
@@ -37,22 +34,6 @@ export class DocxExtractor {
 
   constructor() {
     this.xml = new XmlParser();
-    // Initialize DOM parser (works in Node.js with jsdom)
-    const dom = new JSDOM();
-    this.domParser = new dom.window.DOMParser();
-    this.xmlSerializer = new dom.window.XMLSerializer();
-
-    // Set up global references for XML parser if not already set
-    if (typeof (global as any).window === 'undefined') {
-      (global as any).window = dom.window;
-      (global as any).DOMParser = dom.window.DOMParser;
-      (global as any).XMLSerializer = dom.window.XMLSerializer;
-      (global as any).Node = dom.window.Node;
-      (global as any).Element = dom.window.Element;
-      (global as any).Text = dom.window.Text;
-      (global as any).Comment = dom.window.Comment;
-      (global as any).DocumentFragment = dom.window.DocumentFragment;
-    }
   }
 
   async extract(buffer: ArrayBuffer | Buffer): Promise<ExtractedDocument> {
@@ -73,8 +54,10 @@ export class DocxExtractor {
       throw new Error('Invalid DOCX file: document.xml not found');
     }
 
-    const doc = this.domParser.parseFromString(documentXmlString, 'text/xml');
-    const body = this.xml.element(doc.documentElement, 'body');
+    const doc = this.xml.parseFromString(documentXmlString);
+    // The parseFromString returns the root document element directly
+    const docElement = doc.localName === 'root' && doc.childNodes.length > 0 ? doc.childNodes[0] : doc;
+    const body = this.xml.element(docElement, 'body');
 
     if (!body) {
       throw new Error('Invalid DOCX file: body not found');
@@ -129,12 +112,13 @@ export class DocxExtractor {
     if (!themeXml) return null;
 
     try {
-      const doc = this.domParser.parseFromString(themeXml, 'text/xml');
-      const fontScheme = this.xml.element(doc.documentElement, 'fontScheme');
+      const doc = this.xml.parseFromString(themeXml);
+      // The parsed doc IS the root element
+      const fontScheme = this.xml.element(doc, 'fontScheme');
       if (!fontScheme) return null;
 
       // Map theme references to actual fonts
-      let fontElement: Element | null = null;
+      let fontElement: XmlElement | null = null;
 
       if (themeRef === 'minorLatin' || themeRef === '+mn-lt' || themeRef.includes('minor')) {
         const minorFont = this.xml.element(fontScheme, 'minorFont');
@@ -165,8 +149,9 @@ export class DocxExtractor {
     const relsXml = await this.zip.file('word/_rels/document.xml.rels')?.async('string');
     if (!relsXml) return;
 
-    const doc = this.domParser.parseFromString(relsXml, 'text/xml');
-    const relationships = this.xml.elements(doc.documentElement, 'Relationship');
+    const doc = this.xml.parseFromString(relsXml);
+    // The parsed doc IS the root element
+    const relationships = this.xml.elements(doc, 'Relationship');
 
     for (const rel of relationships) {
       const id = this.xml.attr(rel, 'Id');
@@ -183,10 +168,12 @@ export class DocxExtractor {
     const stylesXml = await this.zip.file('word/styles.xml')?.async('string');
     if (!stylesXml) return;
 
-    const doc = this.domParser.parseFromString(stylesXml, 'text/xml');
+    const doc = this.xml.parseFromString(stylesXml);
+    // The parsed doc IS the styles root element, don't get first child
+    const docElement = doc;
 
     // Extract document defaults
-    const docDefaults = this.xml.element(doc.documentElement, 'docDefaults');
+    const docDefaults = this.xml.element(docElement, 'docDefaults');
     if (docDefaults) {
       const rPrDefault = this.xml.element(docDefaults, 'rPrDefault');
       if (rPrDefault) {
@@ -251,7 +238,7 @@ export class DocxExtractor {
       }
     }
 
-    const styleElements = this.xml.elements(doc.documentElement, 'style');
+    const styleElements = this.xml.elements(docElement, 'style');
 
     for (const styleElem of styleElements) {
       const styleId = this.xml.attr(styleElem, 'styleId');
@@ -372,7 +359,7 @@ export class DocxExtractor {
           styleInfo.spacing = {
             before: this.xml.lengthAttr(spacingElem, 'before') ?? undefined,
             after: this.xml.lengthAttr(spacingElem, 'after') ?? undefined,
-            line: this.xml.intAttr(spacingElem, 'line') / 240 || undefined,
+            line: this.xml.lengthAttr(spacingElem, 'line') ?? undefined,
             lineRule: this.xml.attr(spacingElem, 'lineRule') as any ?? undefined
           };
         }
@@ -402,7 +389,7 @@ export class DocxExtractor {
         if (tblPr) {
           // Serialize the entire tblPr element to XML
           // This preserves borders, cell margins, etc.
-          styleInfo.tablePropertiesXml = this.xmlSerializer.serializeToString(tblPr);
+          styleInfo.tablePropertiesXml = this.xml.serializeToString(tblPr);
         }
       }
 
@@ -419,8 +406,9 @@ export class DocxExtractor {
     const numberingXmlString = await this.zip.file('word/numbering.xml')?.async('string');
     if (!numberingXmlString) return;
 
-    const doc = this.domParser.parseFromString(numberingXmlString, 'text/xml');
-    const numberingElem = doc.documentElement;
+    const doc = this.xml.parseFromString(numberingXmlString);
+    // The parsed doc IS the numbering root element
+    const numberingElem = doc;
 
     // Parse abstract numbering definitions
     const abstractNums: Map<string, { levels: NumberingLevel[], nsid?: string, multiLevelType?: string, tmpl?: string }> = new Map();
@@ -545,7 +533,7 @@ export class DocxExtractor {
     }
   }
 
-  private extractRunFormattingFromElement(rPr: Element): RunFormatting {
+  private extractRunFormattingFromElement(rPr: XmlElement): RunFormatting {
     const formatting: RunFormatting = {};
 
     // Bold
@@ -616,10 +604,18 @@ export class DocxExtractor {
       formatting.highlight = this.xml.attr(highlight, 'val') ?? undefined;
     }
 
+    // Language
+    const lang = this.xml.element(rPr, 'lang');
+    if (lang) {
+      formatting.lang = this.xml.attr(lang, 'val') ?? undefined;
+      formatting.langEastAsia = this.xml.attr(lang, 'eastAsia') ?? undefined;
+      formatting.langBidi = this.xml.attr(lang, 'bidi') ?? undefined;
+    }
+
     return formatting;
   }
 
-  private async extractParagraph(pElem: Element): Promise<ExtractedParagraph> {
+  private async extractParagraph(pElem: XmlElement): Promise<ExtractedParagraph> {
     const runs: ExtractedRun[] = [];
     let spacing: SpacingInfo | undefined;
     let alignment: 'left' | 'center' | 'right' | 'justify' | undefined;
@@ -636,7 +632,7 @@ export class DocxExtractor {
         spacing = {
           before: this.xml.lengthAttr(spacingElem, 'before') ?? undefined,
           after: this.xml.lengthAttr(spacingElem, 'after') ?? undefined,
-          line: this.xml.intAttr(spacingElem, 'line') / 240 || undefined, // Convert to line height multiplier
+          line: this.xml.lengthAttr(spacingElem, 'line') ?? undefined,
           lineRule: this.xml.attr(spacingElem, 'lineRule') as any ?? undefined
         };
       }
@@ -683,7 +679,9 @@ export class DocxExtractor {
     for (const child of this.xml.elements(pElem)) {
       if (child.localName === 'r') {
         const run = await this.extractRun(child);
-        if (run) {
+        // Keep runs that have text (including whitespace), images, or formatting
+        // Don't filter out runs with only spaces - they're critical for proper word spacing!
+        if (run && (run.text !== undefined || run.image || (run.formatting && Object.keys(run.formatting).length > 0))) {
           runs.push(run);
         }
       }
@@ -706,7 +704,7 @@ export class DocxExtractor {
     };
   }
 
-  private async extractRun(rElem: Element): Promise<ExtractedRun | null> {
+  private async extractRun(rElem: XmlElement): Promise<ExtractedRun | null> {
     let text = '';
     const formatting: RunFormatting = {};
 
@@ -769,6 +767,14 @@ export class DocxExtractor {
           formatting.verticalAlign = val;
         }
       }
+
+      // Language
+      const lang = this.xml.element(rPr, 'lang');
+      if (lang) {
+        formatting.lang = this.xml.attr(lang, 'val') ?? undefined;
+        formatting.langEastAsia = this.xml.attr(lang, 'eastAsia') ?? undefined;
+        formatting.langBidi = this.xml.attr(lang, 'bidi') ?? undefined;
+      }
     }
 
     // Extract text content and images
@@ -812,13 +818,16 @@ export class DocxExtractor {
       .replace(/\u000C/g, ' '); // Form Feed
 
     return {
-      text: text || undefined,
+      text: text.length > 0 ? text : undefined, // Keep empty strings as undefined, but preserve spaces
       formatting: Object.keys(formatting).length > 0 ? formatting : undefined,
       image
     };
   }
 
-  private async extractDrawing(drawingElem: Element): Promise<ExtractedImage | undefined> {
+  private async extractDrawing(drawingElem: XmlElement): Promise<ExtractedImage | undefined> {
+    // Serialize the entire drawing element to preserve positioning/anchoring
+    const drawingXml = this.xml.serializeToString(drawingElem);
+
     // Look for inline or anchor
     const inline = this.xml.element(drawingElem, 'inline');
     const anchor = this.xml.element(drawingElem, 'anchor');
@@ -874,11 +883,12 @@ export class DocxExtractor {
       mediaPath: fullMediaPath,
       width,
       height,
+      drawingXml,
       ...imageData
     };
   }
 
-  private async extractVmlPicture(pictElem: Element): Promise<ExtractedImage | undefined> {
+  private async extractVmlPicture(pictElem: XmlElement): Promise<ExtractedImage | undefined> {
     // VML pictures (older format) - simplified extraction
     // TODO: Implement full VML picture parsing if needed
     return undefined;
@@ -919,8 +929,34 @@ export class DocxExtractor {
     }
   }
 
-  private async extractTable(tblElem: Element): Promise<ExtractedTable> {
+  private async extractTable(tblElem: XmlElement): Promise<ExtractedTable> {
     const rows: ExtractedTableRow[] = [];
+
+    // Extract table properties (tblPr) - includes table style, width, etc.
+    const tblPr = this.xml.element(tblElem, 'tblPr');
+    let tableStyle: string | undefined;
+    if (tblPr) {
+      const tblStyle = this.xml.element(tblPr, 'tblStyle');
+      if (tblStyle) {
+        tableStyle = this.xml.attr(tblStyle, 'val') ?? undefined;
+      }
+    }
+
+    // Extract table grid (column widths)
+    // Note: gridCol widths are in twips (dxa), we keep them as-is for rebuilding
+    const tblGrid = this.xml.element(tblElem, 'tblGrid');
+    const columnWidths: number[] = [];
+    if (tblGrid) {
+      for (const gridCol of this.xml.elements(tblGrid, 'gridCol')) {
+        // Get width attribute directly (already in twips)
+        const widthAttr = this.xml.attr(gridCol, 'w');
+        if (widthAttr) {
+          const widthTwips = parseInt(widthAttr, 10);
+          // Store as points for consistency (twips / 20)
+          columnWidths.push(widthTwips / 20);
+        }
+      }
+    }
 
     for (const tr of this.xml.elements(tblElem, 'tr')) {
       const cells: ExtractedTableCell[] = [];
@@ -945,10 +981,14 @@ export class DocxExtractor {
       rows.push({ cells });
     }
 
-    return { rows };
+    return {
+      rows,
+      tableStyle,
+      columnWidths: columnWidths.length > 0 ? columnWidths : undefined
+    };
   }
 
-  private extractCellProperties(tcElem: Element): Partial<ExtractedTableCell> {
+  private extractCellProperties(tcElem: XmlElement): Partial<ExtractedTableCell> {
     const props: Partial<ExtractedTableCell> = {};
 
     const tcPr = this.xml.element(tcElem, 'tcPr');
